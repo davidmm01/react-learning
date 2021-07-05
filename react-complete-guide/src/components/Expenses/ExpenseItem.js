@@ -4,6 +4,7 @@ import Card from "../UI/Card";
 import ExpenseDate from "./ExpenseDate";
 
 const ExpenseItem = (props) => {
+  // this is a dumb/presentational/stateless component since it doesn't manage its own state
   return (
     <Card className="expense-item">
       <ExpenseDate date={props.date} />
