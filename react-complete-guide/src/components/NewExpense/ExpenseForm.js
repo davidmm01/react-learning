@@ -48,21 +48,31 @@ const ExpenseForm = (props) => {
     // });
   };
 
+  const resetFormContents = () => {
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
+  };
+
   const submitHandler = (event) => {
     event.preventDefault(); // stop page reload on form submit by not sending request
 
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate),
     };
 
     props.onSaveExpenseData(expenseData);
 
     // clear the form after submission by using two way binding
-    setEnteredTitle("");
-    setEnteredAmount("");
-    setEnteredDate("");
+    resetFormContents();
+    props.hideForm();
+  };
+
+  const cancelHandler = () => {
+    props.hideForm();
+    resetFormContents();
   };
 
   return (
@@ -98,6 +108,9 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="cancel" onClick={cancelHandler}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>

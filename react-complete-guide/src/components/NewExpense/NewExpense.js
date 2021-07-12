@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import ExpenseForm from "./ExpenseForm";
 import "./NewExpense.css";
 
 const NewExpense = (props) => {
+  const [showForm, setShowForm] = useState(false);
+
+  const showFormHandler = () => {
+    setShowForm(true);
+  };
+
+  const hideFormHandler = () => {
+    setShowForm(false);
+  };
+
   const saveExpenseDataHandler = (enteredExpenseData) => {
     const expenseData = {
       ...enteredExpenseData,
@@ -13,7 +23,14 @@ const NewExpense = (props) => {
 
   return (
     <div className="new-expense">
-      <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} />
+      {/* `condition && action` is how we can do some non-verbose if statements */}
+      {!showForm && <button onClick={showFormHandler}>Add New Expense</button>}
+      {showForm && (
+        <ExpenseForm
+          onSaveExpenseData={saveExpenseDataHandler}
+          hideForm={hideFormHandler}
+        />
+      )}
     </div>
   );
 };
