@@ -1,0 +1,7 @@
+three styling techniques used:
+    - pure css
+        problem with pure css is it can get messy to keep your styles from leaking into other components as everything has global namespace
+    - styled components package (installed from npm)
+        this is kinda ugly, and since i already don't know much css, its doing too much abstraction for me to be comfortable
+    - css modules (already set up by create-react-app)
+        i like this, and its what the course pushes on with
