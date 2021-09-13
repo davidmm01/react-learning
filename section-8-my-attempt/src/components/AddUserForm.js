@@ -1,8 +1,20 @@
 import React, { useState } from "react";
+import Modal from "react-modal";
 
 const AddUserForm = (props) => {
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
+
+  // modal
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  function openModal() {
+    setModalIsOpen(true);
+  }
+
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
   const resetFormContents = () => {
     setEnteredUsername("");
@@ -24,7 +36,11 @@ const AddUserForm = (props) => {
       age: +enteredAge,
     };
 
-    props.onSaveUserData(userData);
+    if (isNaN(userData.age) || userData.username === "") {
+      openModal();
+    } else {
+      props.onSaveUserData(userData);
+    }
 
     // clear the form after submission by using two way binding
     resetFormContents();
@@ -32,6 +48,10 @@ const AddUserForm = (props) => {
 
   return (
     <div>
+      <Modal isOpen={modalIsOpen} contentLabel="Error">
+        <p>You entered bad things.</p>
+        <button onClick={closeModal}>close</button>
+      </Modal>
       <form onSubmit={submitHandler}>
         <div>
           <label>Username</label>
